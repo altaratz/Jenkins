@@ -12,7 +12,8 @@
  see full list  [here](https://wiki.jenkins.io/display/JENKINS/Features+controlled+by+system+properties)    
    
  Example:      
- `docker run -d -p 8080:8080 -p 50000:50000 --env JAVA_OPTS="-Dhudson.footerURL=http://mycompany.com -Djenkins.install.runSetupWizard=false" jenkins`   
+ `docker run -d -p 8080:8080 -p 50000:50000 --env JAVA_OPTS="-Dhudson.footerURL=http://mycompany.com -Djenkins.install.runSetupWizard=false" jenkins`
+ `docker  run -d -p 8080:8080 -p 50000:50000 -v ~/docker/jenkins_home:/var/jenkins_home/ --env JAVA_OPTS="-Dhudson.footerURL=http://mycompany.com -Djenkins.install.runSetupWizard=false"  udi-jenkins`   
   
 #### jenkins authentication    
    
@@ -24,6 +25,8 @@
 #### Persistency and Backup  
 - Run docker with shared volumes on the hosts (on AWS use EBS) .   
 Example:    
-`docker run -d -p 8080:8080 -p 50000:50000 -v <Host persistent folder>:/var/jenkins_home/  jenkins` - Backup and auditing:    
+`docker run -d -p 8080:8080 -p 50000:50000 -v <Host persistent folder>:/var/jenkins_home/  jenkins`
+`docker run -d -p 8080:8080 -p 50000:50000 -v ~/docker/jenkins_home:/var/jenkins_home/ --env JAVA_OPTS="-Dhudson.footerURL=http://mycompany.com -Djenkins.install.runSetupWizard=false"  jenkins`
+ - Backup and auditing:    
  -- [Backup configuration with git](https://plugins.jenkins.io/scm-sync-configuration)    
  -- [Backup configuration to s3]([https://plugins.jenkins.io/s3](https://plugins.jenkins.io/s3))
