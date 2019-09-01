@@ -13,6 +13,7 @@
    
  Example:      
  `docker run -d -p 8080:8080 -p 50000:50000 --env JAVA_OPTS="-Dhudson.footerURL=http://mycompany.com -Djenkins.install.runSetupWizard=false" jenkins`
+ 
  `docker  run -d -p 8080:8080 -p 50000:50000 -v ~/docker/jenkins_home:/var/jenkins_home/ --env JAVA_OPTS="-Dhudson.footerURL=http://mycompany.com -Djenkins.install.runSetupWizard=false"  udi-jenkins`   
   
 #### jenkins authentication    
