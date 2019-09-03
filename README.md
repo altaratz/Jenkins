@@ -27,7 +27,8 @@
 - Run docker with shared volumes on the hosts (on AWS use EBS) .   
 Example:    
 `docker run -d -p 8080:8080 -p 50000:50000 -v <Host persistent folder>:/var/jenkins_home/  jenkins`
-`docker run -d -p 8080:8080 -p 50000:50000 -v ~/docker/jenkins_home:/var/jenkins_home/ --env JAVA_OPTS="-Dhudson.footerURL=http://mycompany.com -Djenkins.install.runSetupWizard=false"  jenkins`
+
+`docker run -d -p 8080:8080 -p 50000:50000 -v ~/docker/jenkins_home:/var/jenkins_home/ -v /var/run/docker.sock:/var/run/docker.sock  --env JAVA_OPTS="-Dhudson.footerURL=http://mycompany.com -Djenkins.install.runSetupWizard=false"  udi-jenkins`
  - Backup and auditing:    
  -- [Backup configuration with git](https://plugins.jenkins.io/scm-sync-configuration)    
  -- [Backup configuration to s3]([https://plugins.jenkins.io/s3](https://plugins.jenkins.io/s3))
