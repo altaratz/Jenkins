@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/kinecosystem/kre-compute-engine.git'
+                git url: 'https://github.com/kinecosystem/kre-compute-engine/dev.git'
             }
         }
         stage('Build image') {
