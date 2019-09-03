@@ -4,67 +4,21 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/ittiel/calc.git'
+                git url: 'https://github.com/altaratz/Jenkins.git'
             }
         }
-        stage('Build') {
+        stage('Build image') {
             steps {
-                echo 'Compiling'
-                sh 'mvn clean compile'
+                ### This build the actual image ###
+                echo 'Docker build'
+                sh 'docker build -t krejenkins/test:${BUILD_NUMBER} .'
             }
         }
-
-        stage('Quality') {
-
-            parallel {
-                stage('Test') {
-
-                    steps {
-                        echo 'Unit testing'
-                        sh 'mvn test'
-                    }
-                 }
-                stage ('Code Quality - SonarQube'){
-                    steps {
-                        echo 'Todo: sonarcube'
-                        echo 'Todo: Quality and security plugins (FindBugs, CheckMarx, etc.'
-                    }
-                }
-                stage ('Code Quality - CheckMarx'){
-                    steps {
-                        echo 'Todo: Quality and security plugins (FindBugs, CheckMarx, etc.'
-                    }
-                }
-
-            }
-        }
-        stage ('prepare-release'){
-
-                parallel {
-                    stage('Release') {
-                        steps {
-                            echo 'Releasing'
-                            sh ' mvn -B release:clean release:prepare release:perform -DdryRun=true'
-                            //running un dryrun since their are ni credentials set on the jenkins machine, so this will fail
-                            //sh 'mvn -B release:clean release:prepare release:perform'
-                        }
-                    }
-                    stage('Create testing env') {
-                        steps {
-                            echo 'Todo: Creating env'
-                        }
-                    }
-                }
-        }
-        stage('Deploy') {
+        stage('Push Docker image') {
             steps {
-                echo 'Todo: Deploying env'
+                echo 'Pushing to DockerHub'
+                sh 'docker push krejenkins/test:${BUILD_NUMBER}'
             }
         }
-        stage('Integration/System tests') {
-            steps {
-                echo 'Todo: Testing'
-            }
-        }       
     }
 }
